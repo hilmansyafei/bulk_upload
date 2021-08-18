@@ -47,27 +47,25 @@ $worksheet = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 $report = array();
 
 for ($i=2; $i <= count($worksheet); $i++) { 
-  for ($j=0; $j < 10; $j++) { 
-    $noTujuan = $worksheet[$i]['A'];
-    $kdProduk = $worksheet[$i]['B'];
-    $trxOrderID = bin2hex(random_bytes(13));
+  $noTujuan = $worksheet[$i]['A'];
+  $kdProduk = $worksheet[$i]['B'];
+  $trxOrderID = bin2hex(random_bytes(13));
 
-    $res = $client->request('GET', "$host?id=$id&pin=$pin&user=$username&pass=$password&kodeproduk=$kdProduk&tujuan=$noTujuan", [
-      'connect_timeout' => 60,
-      'timeout' => 60
-    ]);
+  $res = $client->request('GET', "$host?id=$id&pin=$pin&user=$username&pass=$password&kodeproduk=$kdProduk&tujuan=$noTujuan", [
+    'connect_timeout' => 60,
+    'timeout' => 60
+  ]);
 
-    echo "Order ID : $trxOrderID \n";
-    echo "No Tujuan : $noTujuan \n";
-    echo "Produk Alias : $kdProduk \n";
-    echo "Status : ".$res->getStatusCode()." \n";
-    echo "Body : ".$res->getBody()." \n\n";
+  echo "Order ID : $trxOrderID \n";
+  echo "No Tujuan : $noTujuan \n";
+  echo "Produk Alias : $kdProduk \n";
+  echo "Status : ".$res->getStatusCode()." \n";
+  echo "Body : ".$res->getBody()." \n\n";
 
-    if (array_key_exists($res->getStatusCode(),$report)) {
-      $report[$res->getStatusCode()] = $report[$res->getStatusCode()] + 1;
-    }else{
-      $report[$res->getStatusCode()] = 1;
-    }
+  if (array_key_exists($res->getStatusCode(),$report)) {
+    $report[$res->getStatusCode()] = $report[$res->getStatusCode()] + 1;
+  }else{
+    $report[$res->getStatusCode()] = 1;
   }
 }
 
