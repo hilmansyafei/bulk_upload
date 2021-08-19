@@ -56,7 +56,7 @@ $report = array();
 
 // loop data excel
 for ($i=2; $i <= count($worksheet); $i++) { 
-    $noTujuan = str_replace("'","",$worksheet[$i]['A']);
+    $noTujuan = str_replace("'","",$worksheet[$i]['A'];
     if ($noTujuan != "") {
         $kdProduk = $worksheet[$i]['B'];
         $trxOrderID = bin2hex(random_bytes(13));
